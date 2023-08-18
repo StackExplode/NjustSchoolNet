@@ -5,9 +5,11 @@ A tool for autherizing access of school internet without open a web page in Nanj
 
 0. Install .net core 3.1 or above(not .net framework)
 1. Download release
-2. Run `NjustSchoolNet.exe`
-3. If you are using WLAN, connect your device to the WLAN then enter username and password, press "Login"
-
+2. If you are using WLAN, connect your device to the WLAN.
+3. If you are using wired network, plug your net cable and create a PPPoE connection via Windows setting.
+4. Run the program
+5. If you are using WLAN press "Login" while wired network users should select proper PPPoE connection in RAS dropdown list and  press "Ras dial"
+6. If you are going to logout, WLAN users press "Logout" while wired network users press "Hang up"
 //... TODO
 
 
