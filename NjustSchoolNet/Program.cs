@@ -25,8 +25,10 @@ namespace NjustSchoolNet
                     rt = Helpers.LogAuto();
                 else if (args[0].ToLower() == "dial")
                 {
-                    if(args.Length > 3)
+                    if (args.Length > 3)
                         rt = Helpers.Dial(args[1], args[2], args[3]);
+                    else if (args.Length == 1)
+                        rt = Helpers.Dial("0");
                     else
                         rt = Helpers.Dial(args[1]);
                 }

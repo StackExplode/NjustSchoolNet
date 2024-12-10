@@ -178,13 +178,22 @@ namespace NjustSchoolNet
         public static int Dial(string entry,string user = null, string pass = null)
         {
             RasDialer dia = new RasDialer();
-            if(entry is null)
+            if (entry is null)
             {
                (var uuu, var ppp, dia.EntryName, bool dialpass) = Helpers.LoadConfigFromReg();
                 if(dialpass)
                 {
                     dia.Credentials = new NetworkCredential(uuu, ppp);
                 }
+            }
+            else if(user is null)
+            {
+                int num = int.Parse(entry);
+                string[] allentries;
+                RasHelper.EnumEntries(out allentries, out _);
+                if (num >= allentries.Length)
+                    return 3;
+                dia.EntryName = allentries[num];
             }
             else
             {

@@ -36,10 +36,11 @@ example:
 ```
 
 * ### dial
-Dail an existing PPPoE when username and password not provided, program will read Windows stored data
+Dail the number N existing PPPoE(by default N is 0). When username and password not provided, program will read Windows stored data
 example:
 ```
 ./NjustSchoolNet.exe dial
+./NjustSchoolNet.exe dial N
 ./NjustSchoolNet.exe dial username password
 ```
 * ### dialauto

@@ -155,14 +155,14 @@ namespace NjustSchoolNet
             else
             {
                 int len = json["results"]["total"].GetValue<int>();
-                for(int i = 0; i< len;i++)
+                for (int i = 0; i < len; i++)
                 {
                     var row = json["results"]["rows"][i];
                     sb.Append($"{row["sub_account_name"]} : {(row["balance"].GetValue<int>() / 1000.0)} yuan");
                     sb.Append(Environment.NewLine);
                 }
             }
-            MessageBox.Show(sb.ToString(),"Query Balance");
+            MessageBox.Show(sb.ToString(), "Query Balance");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -265,6 +265,9 @@ namespace NjustSchoolNet
 
         }
 
-        
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Helpers.Dial("0");
+        }
     }
 }

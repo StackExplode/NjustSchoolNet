@@ -37,6 +37,7 @@
             button2 = new System.Windows.Forms.Button();
             checkBox1 = new System.Windows.Forms.CheckBox();
             groupBox1 = new System.Windows.Forms.GroupBox();
+            linkLabel2 = new System.Windows.Forms.LinkLabel();
             linkLabel1 = new System.Windows.Forms.LinkLabel();
             lbl_down = new System.Windows.Forms.Label();
             label11 = new System.Windows.Forms.Label();
@@ -58,7 +59,7 @@
             checkBox2 = new System.Windows.Forms.CheckBox();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
             lbl_help = new System.Windows.Forms.Label();
-            linkLabel2 = new System.Windows.Forms.LinkLabel();
+            button5 = new System.Windows.Forms.Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -154,6 +155,17 @@
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Account Info";
+            // 
+            // linkLabel2
+            // 
+            linkLabel2.AutoSize = true;
+            linkLabel2.Location = new System.Drawing.Point(7, 82);
+            linkLabel2.Name = "linkLabel2";
+            linkLabel2.Size = new System.Drawing.Size(56, 17);
+            linkLabel2.TabIndex = 4;
+            linkLabel2.TabStop = true;
+            linkLabel2.Text = "Balance:";
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
             // linkLabel1
             // 
@@ -374,22 +386,22 @@
             lbl_help.TabIndex = 12;
             lbl_help.Text = "?";
             // 
-            // linkLabel2
+            // button5
             // 
-            linkLabel2.AutoSize = true;
-            linkLabel2.Location = new System.Drawing.Point(7, 82);
-            linkLabel2.Name = "linkLabel2";
-            linkLabel2.Size = new System.Drawing.Size(56, 17);
-            linkLabel2.TabIndex = 4;
-            linkLabel2.TabStop = true;
-            linkLabel2.Text = "Balance:";
-            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
+            button5.Location = new System.Drawing.Point(206, 146);
+            button5.Name = "button5";
+            button5.Size = new System.Drawing.Size(75, 23);
+            button5.TabIndex = 13;
+            button5.Text = "button5";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(507, 281);
+            Controls.Add(button5);
             Controls.Add(lbl_help);
             Controls.Add(label9);
             Controls.Add(cmb_ras);
@@ -454,6 +466,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lbl_help;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.Button button5;
     }
 }
 
