@@ -5,8 +5,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>preview</LangVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <FileVersion>2.5</FileVersion>
-    <AssemblyVersion>2.5</AssemblyVersion>
+    <FileVersion>2.7</FileVersion>
+    <AssemblyVersion>2.7</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="5.7.0">
@@ -16,11 +16,8 @@
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22621.755" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DotRas" ExcludeAssets="runtime" PrivateAssets="all">
-      <HintPath>D:\VisualStudioProjects\DotRas-main\src\DotRas\bin\Debug\netcoreapp3.1\win10\DotRas.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
+    <Reference Include="DotRas">
+      <HintPath>..\..\..\DotRas-main\src\DotRas\bin\Debug\netcoreapp3.1\win10\DotRas.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

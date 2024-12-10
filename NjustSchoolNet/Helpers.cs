@@ -74,6 +74,35 @@ namespace NjustSchoolNet
             return rt;
         }
 
+        public static async Task<string> HttpGetAsync(string url, Dictionary<string, string> header = null)
+        {
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "GET";
+            if (header != null)
+            {
+                foreach (var h in header)
+                {
+                    req.Headers.Add(h.Key, h.Value);
+                }
+            }
+            
+            HttpWebResponse res = (HttpWebResponse)await req.GetResponseAsync();
+            string rt = null;
+            Stream resstream = null;
+            try
+            {
+                resstream = res.GetResponseStream();
+                StreamReader sr = new StreamReader(resstream);
+                rt = await sr.ReadToEndAsync();
+                sr.Close();
+            }
+            finally
+            {
+                resstream?.Close();
+            }
+            return rt;
+        }
+
         public static string Json_GetVal(string json, params string[] keys)
         {
             Dictionary<string, dynamic> dic = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(json);
@@ -112,10 +141,13 @@ namespace NjustSchoolNet
 
         public static int Login(string uname,string pass)
         {
-            NameValueCollection outgoingQueryString = HttpUtility.ParseQueryString(String.Empty);
-            outgoingQueryString.Add("username", uname);
-            outgoingQueryString.Add("password", pass);
-            string data = outgoingQueryString.ToString();
+            //             NameValueCollection outgoingQueryString = HttpUtility.ParseQueryString(String.Empty);
+            //             outgoingQueryString.Add("username", uname);
+            //             outgoingQueryString.Add("password", pass);
+            //             string data = outgoingQueryString.ToString();
+
+            string data = $"{{\"domain\":\"default\",\"username\":\"{uname}\",\"password\":\"{pass}\"}}: ";
+
 
             var task = Helpers.HttpPostAsync(Properties.Resources.login_url, Helpers.Login_Header, data);
             task.RunSynchronously();
@@ -128,7 +160,7 @@ namespace NjustSchoolNet
 
         public static int Logout()
         {
-            var task = Helpers.HttpPostAsync(Properties.Resources.logout_url);
+            var task = Helpers.HttpPostAsync(Properties.Resources.logout_url,null, "{\"domain\":\"default\"}");
             task.RunSynchronously();
             string rt = task.Result;
 

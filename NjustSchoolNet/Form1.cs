@@ -45,10 +45,13 @@ namespace NjustSchoolNet
         private async void button2_Click(object sender, EventArgs e)
         {
             OnOffControls(false);
-            string rt = await Helpers.HttpPostAsync(Properties.Resources.logout_url);
+            string rt = await Helpers.HttpPostAsync(Properties.Resources.logout_url, null, "{\"domain\":\"default\"}");
             OnOffControls(true);
             JJsonObject json = new JJsonObject(rt);
-            lbl_info.Text = json["reply_msg"].Value;
+            if (json["reply_code"].GetValue<int>() != 0)
+                lbl_info.Text = json["reply_msg"].Value;
+            else
+                lbl_info.Text = "Success!";
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -59,18 +62,30 @@ namespace NjustSchoolNet
             OnOffControls(false);
             string uname = txt_uname.Text;
             string pass = txt_pass.Text;
-            NameValueCollection outgoingQueryString = HttpUtility.ParseQueryString(String.Empty);
-            outgoingQueryString.Add("username", uname);
-            outgoingQueryString.Add("password", pass);
-            string data = outgoingQueryString.ToString();
+            //             NameValueCollection outgoingQueryString = HttpUtility.ParseQueryString(String.Empty);
+            //             outgoingQueryString.Add("username", uname);
+            //             outgoingQueryString.Add("password", pass);
+            //             string data = outgoingQueryString.ToString();
+
+            string data = $"{{\"domain\":\"default\",\"username\":\"{uname}\",\"password\":\"{pass}\"}}: ";
 
             string rt = await Helpers.HttpPostAsync(Properties.Resources.login_url, Helpers.Login_Header, data);
 
 
             JJsonObject json = new JJsonObject(rt);
-            lbl_info.Text = json["reply_msg"].Value;
+            if (json["reply_code"].GetValue<int>() != 0)
+                lbl_info.Text = json["reply_msg"].Value;
+            else
+                lbl_info.Text = "Success!";
+            if (json["reply_code"].GetValue<int>() != 0)
+            {
+                OnOffControls(true);
+                return;
+            }
+
 
             await Task.Delay(3000);
+
             linkLabel1_LinkClicked(null, null);
             OnOffControls(true);
         }
@@ -78,36 +93,76 @@ namespace NjustSchoolNet
         private async void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OnOffControls(false);
-            string rt0 = await Helpers.HttpPostAsync(Properties.Resources.userinfo_url);
-            string rt = await Helpers.HttpPostAsync(Properties.Resources.setinfo_url);
+            string rt0 = await Helpers.HttpGetAsync(Properties.Resources.userinfo_url);
+            string rt = await Helpers.HttpGetAsync(Properties.Resources.setinfo_url + $"{DateTime.Now.ToString("yyyyMM")}");
             OnOffControls(true);
             textBox1.Text = rt;
             JJsonObject json = new JJsonObject(rt);
 
             if (json["reply_code"].GetValue<int>() != 0)
             {
-                lbl_time.Text = string.Empty;
+                lbl_time.Text = json["reply_msg"].Value;
                 lbl_up.Text = string.Empty;
                 lbl_down.Text = string.Empty;
-                lbl_balance.Text = string.Empty;
-                lbl_acc.Text = json["reply_msg"].Value;
-                lbl_info.Text = "Refresh Data Failed!";
-                return;
+
+            }
+            else
+            {
+                var row = json["results"]["rows"][0];
+                int time = row["total_time"].GetValue<int>();
+                TimeSpan ts = new TimeSpan(0, 0, time);
+                lbl_time.Text = $"{(int)ts.TotalHours}h {ts.Minutes}m";
+                var up = Helpers.NormalizeByte(row["total_input_octets_ipv4"].GetValue<long>());
+                var down = Helpers.NormalizeByte(row["total_output_octets_ipv4"].GetValue<long>());
+                lbl_up.Text = up.value + " " + up.unit;
+                lbl_down.Text = down.value + " " + down.unit;
             }
 
-            var row = json["rows"][0];
-            int time = row["total_time"].GetValue<int>();
-            TimeSpan ts = new TimeSpan(0, 0, time);
-            lbl_time.Text = $"{(int)ts.TotalHours}h {ts.Minutes}m";
-            var up = Helpers.NormalizeByte(row["total_input_octets_ipv4"].GetValue<long>());
-            var down = Helpers.NormalizeByte(row["total_output_octets_ipv4"].GetValue<long>());
-            lbl_up.Text = up.value + " " + up.unit;
-            lbl_down.Text = down.value + " " + down.unit;
 
-            JJsonObject json0 = new JJsonObject(rt0);
-            lbl_acc.Text = json0["userinfo"]["fullname"].Value;
-            lbl_balance.Text = (json0["userinfo"]["balance"].GetValue<int>() / 100.0).ToString() + "yuan";
-            lbl_info.Text = "Refresh Data Success!";
+
+            JJsonObject json00 = new JJsonObject(rt0);
+
+            if (json00["reply_code"].GetValue<int>() != 0)
+            {
+                lbl_balance.Text = string.Empty;
+                lbl_acc.Text = json00["reply_msg"].Value;
+                lbl_info.Text = "Refresh Data Failed!";
+            }
+            else
+            {
+                JJsonObject json0 = new JJsonObject(json00["results"]["rows"][0].ToString());
+                lbl_acc.Text = json0["fullname"].Value;
+                lbl_balance.Text = (json0["balance"].GetValue<int>() / 100.0).ToString() + " yuan";
+                lbl_info.Text = "Refresh Data Success!";
+            }
+
+
+        }
+
+        private async void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            OnOffControls(false);
+            string rt = await Helpers.HttpGetAsync(Properties.Resources.account_url);
+            OnOffControls(true);
+
+            JJsonObject json = new JJsonObject(rt);
+
+            if (json["reply_code"].GetValue<int>() != 0)
+            {
+                sb.Append(json["reply_msg"].Value);
+            }
+            else
+            {
+                int len = json["results"]["total"].GetValue<int>();
+                for(int i = 0; i< len;i++)
+                {
+                    var row = json["results"]["rows"][i];
+                    sb.Append($"{row["sub_account_name"]} : {(row["balance"].GetValue<int>() / 1000.0)} yuan");
+                    sb.Append(Environment.NewLine);
+                }
+            }
+            MessageBox.Show(sb.ToString(),"Query Balance");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -186,7 +241,7 @@ namespace NjustSchoolNet
                 OnOffControls(false);
                 await ras_con.DisconnectAsync();
                 ras_con = null;
-                OnOffControls(false);
+                OnOffControls(true);
                 this.Invoke(() => lbl_info.Text = "Disconnect Finished!");
             }
             else
@@ -203,11 +258,13 @@ namespace NjustSchoolNet
                     this.Invoke(() => lbl_info.Text = "Disconnecting PPPoE...");
                     OnOffControls(false);
                     await con.DisconnectAsync();
-                    OnOffControls(false);
+                    OnOffControls(true);
                     this.Invoke(() => lbl_info.Text = "Disconnect Finished!");
                 }
             }
 
         }
+
+        
     }
 }

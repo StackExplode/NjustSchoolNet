@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="account_url" xml:space="preserve">
+    <value>http://m.njust.edu.cn/api/selfservice/v1/account</value>
+  </data>
   <data name="login_url" xml:space="preserve">
-    <value>http://m.njust.edu.cn/portal_io/login</value>
+    <value>http://m.njust.edu.cn/api/portal/v1/login</value>
   </data>
   <data name="logout_url" xml:space="preserve">
-    <value>http://m.njust.edu.cn/portal_io/logout</value>
+    <value>http://m.njust.edu.cn/api/portal/v1/logout</value>
   </data>
   <data name="setinfo_url" xml:space="preserve">
-    <value>http://m.njust.edu.cn/portal_io/selfservice/volume/getlist</value>
+    <value>http://m.njust.edu.cn/api/selfservice/v1/volume/</value>
   </data>
   <data name="userinfo_url" xml:space="preserve">
-    <value>http://m.njust.edu.cn/portal_io/getinfo</value>
+    <value>http://m.njust.edu.cn/api/portal/v1/getinfo</value>
   </data>
 </root>

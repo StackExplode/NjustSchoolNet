@@ -19,7 +19,7 @@ namespace NjustSchoolNet.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -47,8 +47,8 @@ namespace NjustSchoolNet.Properties {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -61,7 +61,16 @@ namespace NjustSchoolNet.Properties {
         }
         
         /// <summary>
-        ///   查找类似 http://m.njust.edu.cn/portal_io/login 的本地化字符串。
+        ///   查找类似 http://m.njust.edu.cn/api/selfservice/v1/account 的本地化字符串。
+        /// </summary>
+        internal static string account_url {
+            get {
+                return ResourceManager.GetString("account_url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 http://m.njust.edu.cn/api/portal/v1/login 的本地化字符串。
         /// </summary>
         internal static string login_url {
             get {
@@ -70,7 +79,7 @@ namespace NjustSchoolNet.Properties {
         }
         
         /// <summary>
-        ///   查找类似 http://m.njust.edu.cn/portal_io/logout 的本地化字符串。
+        ///   查找类似 http://m.njust.edu.cn/api/portal/v1/logout 的本地化字符串。
         /// </summary>
         internal static string logout_url {
             get {
@@ -79,7 +88,7 @@ namespace NjustSchoolNet.Properties {
         }
         
         /// <summary>
-        ///   查找类似 http://m.njust.edu.cn/portal_io/selfservice/volume/getlist 的本地化字符串。
+        ///   查找类似 http://m.njust.edu.cn/api/selfservice/v1/volume/ 的本地化字符串。
         /// </summary>
         internal static string setinfo_url {
             get {
@@ -88,7 +97,7 @@ namespace NjustSchoolNet.Properties {
         }
         
         /// <summary>
-        ///   查找类似 http://m.njust.edu.cn/portal_io/getinfo 的本地化字符串。
+        ///   查找类似 http://m.njust.edu.cn/api/portal/v1/getinfo 的本地化字符串。
         /// </summary>
         internal static string userinfo_url {
             get {
