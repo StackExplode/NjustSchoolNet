@@ -59,7 +59,6 @@
             checkBox2 = new System.Windows.Forms.CheckBox();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
             lbl_help = new System.Windows.Forms.Label();
-            button5 = new System.Windows.Forms.Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -386,22 +385,11 @@
             lbl_help.TabIndex = 12;
             lbl_help.Text = "?";
             // 
-            // button5
-            // 
-            button5.Location = new System.Drawing.Point(206, 146);
-            button5.Name = "button5";
-            button5.Size = new System.Drawing.Size(75, 23);
-            button5.TabIndex = 13;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(507, 281);
-            Controls.Add(button5);
             Controls.Add(lbl_help);
             Controls.Add(label9);
             Controls.Add(cmb_ras);
@@ -466,7 +454,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lbl_help;
         private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.Button button5;
     }
 }
 
