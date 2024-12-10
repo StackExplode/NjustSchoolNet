@@ -15,6 +15,8 @@ A tool for autherizing access of school internet without open a web page in Nanj
 
 # Arguments
 
+By default the program will open a GUI interface. You can type arguments below to invoke functions silently.
+
 * ### login
 example:
 ```
@@ -55,3 +57,7 @@ example:
 ./NjustSchoolNet.exe hang
 ```
 
+# Privacy Attention
+
+* The school's official API will send your password with **unencrypted** plain text as parameter.
+* Your password would be stroed in Windows registry if you check the checkbox of "Remember Me".
